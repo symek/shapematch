@@ -107,6 +107,6 @@ SOP_Pca::cookMySop(OP_Context &context)
         gdp->setPos3(ptoff, pos);
     }
 
-//    gdp->getP()->bumpDataId();
+    gdp->getP()->bumpDataId();
     return error();
 }
