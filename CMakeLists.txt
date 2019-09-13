@@ -25,23 +25,6 @@ message (STATUS "Cpd lib: ${Houdini_VERSION}")
 find_package(Eigen3 REQUIRED)
 message(STATUS "Eigen3 version: ${EIGEN3_VERSION}")
 
-# Main sources
-list(APPEND _sources
-        src/SOP_ShapeMatch.cpp
-        src/SOP_ShapeMatch.h
-)
-
-add_library( SOP_ShapeMatch SHARED
-        ${_sources}
-        )
-
-target_include_directories(SOP_ShapeMatch
-    PUBLIC ${EIGEN3_INCLUDE_DIR})
-
-target_link_libraries(SOP_ShapeMatch
-        PUBLIC
-        Cpd::Library-C++
-        )
 
 if(NOT TARGET OpenMP::OpenMP_CXX)
     find_package(Threads REQUIRED)
@@ -53,10 +36,9 @@ if(NOT TARGET OpenMP::OpenMP_CXX)
                  PROPERTY INTERFACE_LINK_LIBRARIES ${OpenMP_CXX_FLAGS} Threads::Threads)
 endif()
 
-target_link_libraries(SOP_ShapeMatch PUBLIC OpenMP::OpenMP_CXX)
+add_subdirectory (src/SOP_ShapeMatch)
 
-target_link_libraries( SOP_ShapeMatch  PUBLIC Houdini )
-houdini_configure_target( SOP_ShapeMatch )
+
 
 
 

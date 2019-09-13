@@ -12,7 +12,6 @@
 #include <Eigen/Dense>
 
 #include <cpd/nonrigid.hpp>
-#include <cpd/gauss_transform.hpp>
 #include <cpd/gauss_transform_fgt.hpp>
 
 #include "SOP_ShapeMatch.h"
