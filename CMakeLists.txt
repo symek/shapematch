@@ -19,9 +19,6 @@ list( APPEND CMAKE_PREFIX_PATH "$ENV{HT}/cmake")
 find_package( Houdini REQUIRED )
 message (STATUS "Houdini HDK: ${Houdini_VERSION}")
 
-#find_package(Fgt REQUIRED)
-#message (STATUS "Fgt lib: ${Houdini_VERSION}")
-
 find_package(Cpd REQUIRED)
 message (STATUS "Cpd lib: ${Houdini_VERSION}")
 
@@ -54,10 +51,9 @@ if(NOT TARGET OpenMP::OpenMP_CXX)
     # Only works if the same flag is passed to the linker; use CMake 3.9+ otherwise (Intel, AppleClang)
     set_property(TARGET OpenMP::OpenMP_CXX
                  PROPERTY INTERFACE_LINK_LIBRARIES ${OpenMP_CXX_FLAGS} Threads::Threads)
-
 endif()
-target_link_libraries(SOP_ShapeMatch PUBLIC OpenMP::OpenMP_CXX)
 
+target_link_libraries(SOP_ShapeMatch PUBLIC OpenMP::OpenMP_CXX)
 
 target_link_libraries( SOP_ShapeMatch  PUBLIC Houdini )
 houdini_configure_target( SOP_ShapeMatch )
