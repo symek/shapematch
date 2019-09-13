@@ -37,6 +37,7 @@ if(NOT TARGET OpenMP::OpenMP_CXX)
 endif()
 
 add_subdirectory (src/SOP_ShapeMatch)
+add_subdirectory (src/SOP_Pca)
 
 
 
