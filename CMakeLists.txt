@@ -25,7 +25,6 @@ message (STATUS "Cpd lib: ${Cpd_VERSION}")
 find_package(Eigen3 REQUIRED)
 message(STATUS "Eigen3: ${Eigen3_VERSION}")
 
-
 if(NOT TARGET OpenMP::OpenMP_CXX)
     find_package(Threads REQUIRED)
     add_library(OpenMP::OpenMP_CXX IMPORTED INTERFACE)

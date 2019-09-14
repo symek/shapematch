@@ -11,7 +11,13 @@
 
 #include <Eigen/Dense>
 
+#include <igl/eigs.h>
+#include <igl/cotmatrix.h>
+#include <igl/massmatrix.h>
+
+
 #include "SOP_Pca.hpp"
+#include "converters.hpp"
 #include "pca.hpp"
 
 using namespace pca;
@@ -30,9 +36,10 @@ newSopOperator(OP_OperatorTable *table)
 }
 
 static PRM_Name names[] = {
-        PRM_Name("variance",        "Variance "),
-        PRM_Name("shift",         "Shift Data"),
-        PRM_Name("ortho",            "Orthogonalize PCA"),
+        PRM_Name("variance",  "Variance "),
+        PRM_Name("shift",     "Shift Data"),
+        PRM_Name("ortho",     "Orthogonalize PCA"),
+        PRM_Name("eigenvectors","Eigenvectors"),
 
 
 };
@@ -46,6 +53,7 @@ PRM_Template
         PRM_Template(PRM_FLT_LOG, 1, &names[0],    &varianceDefault),    // stop criteria
         PRM_Template(PRM_TOGGLE,1,   &names[1],    PRMzeroDefaults), // use fgt
         PRM_Template(PRM_TOGGLE,1,   &names[2],    PRMzeroDefaults), // use fgt
+        PRM_Template(PRM_INT_J, 1,   &names[3],    PRMzeroDefaults), // max iterations
 
         PRM_Template(),
 };
@@ -84,6 +92,41 @@ SOP_Pca::cookMySop(OP_Context &context)
     const float variance      = evalFloat("variance", 0, t);
     const int   shift         = evalInt("shift", 0, t);
     const int   orthogonalize = evalInt("ortho", 0, t);
+    const int   eigenvectors  = evalInt("eigenvectors", 0, t);
+
+    if (eigenvectors != 0) {
+
+//        gdp->convex(); // only triangles for now, but point count will match
+//        uint numPoints = gdp->getNumPoints();
+//        uint numPrims  = gdp->getNumPrimitives();
+//        Eigen::MatrixXd V(numPoints, 3); // points
+//        Eigen::MatrixXi F(numPrims, 3); // faces
+
+//        SOP_IGL::detail_to_eigen(*gdp, V, F);
+
+
+//        Eigen::SparseMatrix<double> L, M;
+//        igl::cotmatrix(V,F,L);
+//        L = (-L).eval();
+//
+//        igl::massmatrix(V, F, igl::MASSMATRIX_TYPE_DEFAULT, M);
+//        int c = 0;
+//        bool  twod = V.col(2).minCoeff()==V.col(2).maxCoeff();
+//        double bbd = (V.colwise().maxCoeff()-V.colwise().minCoeff()).norm();
+//
+//        const size_t k = eigenvectors;
+//        Eigen::VectorXd D;
+//        Eigen::MatrixXd U;
+//
+//        if(!igl::eigs(L, M, k+1, igl::EIGS_TYPE_SM, U, D)) {
+//            addWarning(SOP_MESSAGE, "Can't compute eigen decomposition.");
+//            return error();
+//        }
+//
+//        U = ((U.array()-U.minCoeff())/(U.maxCoeff()-U.minCoeff())).eval();
+//        U = U.rightCols(k).eval();
+//        std::cout << U << '\n';
+    }
 
 
     Vertices source;
