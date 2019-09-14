@@ -20,10 +20,10 @@ find_package( Houdini REQUIRED )
 message (STATUS "Houdini HDK: ${Houdini_VERSION}")
 
 find_package(Cpd REQUIRED)
-message (STATUS "Cpd lib: ${Houdini_VERSION}")
+message (STATUS "Cpd lib: ${Cpd_VERSION}")
 
 find_package(Eigen3 REQUIRED)
-message(STATUS "Eigen3 version: ${EIGEN3_VERSION}")
+message(STATUS "Eigen3: ${Eigen3_VERSION}")
 
 
 if(NOT TARGET OpenMP::OpenMP_CXX)
